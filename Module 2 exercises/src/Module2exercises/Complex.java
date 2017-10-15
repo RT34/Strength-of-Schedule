@@ -6,9 +6,9 @@ public class Complex {
 		dReal = real;
 		dImag = imag;
 	}
-	static Complex ONE = new Complex(1,0);
-	static Complex ZERO = new Complex(0,0);
-	static Complex I = new Complex (0,0);
+	final static Complex ONE = new Complex(1,0); //All constants that need never be changed.
+	final static Complex ZERO = new Complex(0,0);
+	final static Complex I = new Complex (0,1);
 	double real () {
 		return dReal;
 	}
