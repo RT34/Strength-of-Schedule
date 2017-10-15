@@ -28,16 +28,13 @@ public class FallingParticle {
 		double a = (d * v * v /m) - g;
 		v += a * deltaT;
 		z += v * deltaT;
+		t += deltaT;
 		return this;
 	}
 	public FallingParticle drop(double deltaT) { //returns this for the reasons stated above
-		while (z >= 0.0) //not z != zero as there is no guarantee it ever would exactly, and direct double comparison is often inaccurate
-		{
+		z = h;
+		while (z >= 0.0)  //not z != zero as there is no guarantee it ever would exactly, and direct double comparison is often inaccurate
 			doTimeStep(deltaT);
-			if (t >= 1e40) //prevents infinite loops due to error in testing stage
-				System.out.println("You done fucked up");
-				break;
-		}
 		return this;
 	}
 }
