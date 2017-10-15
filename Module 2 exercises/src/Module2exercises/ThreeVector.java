@@ -12,7 +12,14 @@ public class ThreeVector {
 		return Math.sqrt(x * x + y * y + z * z);
 	}
 	public ThreeVector unitVector() {
-		return new ThreeVector(x/magnitude(), y/magnitude(), z/magnitude());
+		double mag = magnitude(); //Prevents multiple calls of magnitude
+		if (mag!= 0) //Prevents divide by zero in case of null vector
+		{
+			return new ThreeVector(x/mag, y/mag, z/mag);
+		}
+		else {
+			return new ThreeVector(0,0,0); //Not sure if correct behaviour
+		}
 	}
 	public String toString() {
 		return String.valueOf(x) + "i + " + String.valueOf(y) + "j + " + String.valueOf(z) + "k";
