@@ -7,23 +7,19 @@ public class ThreeVector {
 		this.y = y;
 		this.z = z;
 	}
-	public double magnitude()
-	{
+	public double magnitude()	{
 		return Math.sqrt(x * x + y * y + z * z);
 	}
 	public ThreeVector unitVector() {
 		double mag = magnitude(); //Prevents multiple calls of magnitude
 		if (mag!= 0) //Prevents divide by zero in case of null vector
-		{
 			return new ThreeVector(x/mag, y/mag, z/mag);
-		}
-		else {
+		else 
 			return new ThreeVector(0,0,0); //Not sure if correct behaviour, nullvector has no direction
-		}
 	}
-	public String toString() {
-		return String.valueOf(x) + "i + " + String.valueOf(y) + "j + " + String.valueOf(z) + "k";
-	}
+	//public String toString() {
+		//return String.valueOf(x) + "i + " + String.valueOf(y) + "j + " + String.valueOf(z) + "k";
+	//}
 	public static double scalarProduct(ThreeVector v1, ThreeVector v2) {
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 	}
@@ -47,7 +43,7 @@ public class ThreeVector {
 			return Math.acos(ThreeVector.scalarProduct(v1, v2)/(v1.magnitude() * v2.magnitude()));
 		else return 0; //Not sure if correct behaviour, null vector has no direction to have an angle relative to
 	}
-	public double nonStaticAngle(ThreeVector v1, ThreeVector v2) {
+	public double notStaticAngle(ThreeVector v1, ThreeVector v2) {
 		return angle(v1, v2);
 	}
 }
