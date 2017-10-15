@@ -18,7 +18,7 @@ public class ThreeVector {
 			return new ThreeVector(x/mag, y/mag, z/mag);
 		}
 		else {
-			return new ThreeVector(0,0,0); //Not sure if correct behaviour
+			return new ThreeVector(0,0,0); //Not sure if correct behaviour, nullvector has no direction
 		}
 	}
 	public String toString() {
@@ -43,7 +43,9 @@ public class ThreeVector {
 		return add(v1, v2);
 	}
 	public static double angle(ThreeVector v1, ThreeVector v2) {
-		return Math.acos(ThreeVector.scalarProduct(v1, v2)/(v1.magnitude() * v2.magnitude()));
+		if (v1.magnitude() != 0 && v2.magnitude() != 0) //Prevents division by zero
+			return Math.acos(ThreeVector.scalarProduct(v1, v2)/(v1.magnitude() * v2.magnitude()));
+		else return 0; //Not sure if correct behaviour, null vector has no direction to have an angle relative to
 	}
 	public double nonStaticAngle(ThreeVector v1, ThreeVector v2) {
 		return angle(v1, v2);
