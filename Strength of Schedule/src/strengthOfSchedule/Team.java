@@ -44,14 +44,14 @@ public class Team {
 		}
 		boolean homeAdded = false, awayAdded = false;
 		for (Team team: teams) {
-			if (team.ID == homeTeam) {
+			if (team.ID.equals(homeTeam)) {
 				team.opponents.add(awayTeam);
 				homeAdded = true;
 				if (awayAdded) {
 					break;
 				}
 			}
-			else if (team.ID == awayTeam) {
+			else if (team.ID.equals(awayTeam)) {
 				team.opponents.add(homeTeam);
 				awayAdded = true;
 				if(homeAdded) {
@@ -65,5 +65,22 @@ public class Team {
 			throw new Exception("One of more of the teams to be added was not included in the team list.");
 		}
 		s.close();
+	}
+	/**Goes through the list of teams provided and sums the strength of schedule of teams specified as an opponent, thus calculating the appropriate strength of schedule
+	 * 
+	 * @param Teams: list of teams 
+	 */
+	public void updateSOS(ArrayList<Team>Teams) throws Exception {
+		this.strengthOfSchedule = 0;
+		int opponentsFound = 0;
+		for (Team team : Teams) {
+			if (this.opponents.contains(team.ID)) {
+				opponentsFound++;
+				this.strengthOfSchedule += team.strengthOfSchedule;
+			}
+		}
+		if (opponentsFound != opponents.size()) {
+			throw new Exception("Not all opponents could be found for " + this.ID.toString());
+		}
 	}
 }
