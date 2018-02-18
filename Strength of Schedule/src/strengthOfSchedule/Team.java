@@ -28,7 +28,12 @@ public class Team {
 		}
 		s.close();
 	}
-	
+	/**Takes a string containing the details of one match and adds it to the opponents list of the appropriate teams
+	 * 
+	 * @param matchInfo: string containing match details
+	 * @param teams: arrayList of all teams to be checked.
+	 * @throws Exception: throws exception if the text string is formatted incorrectly, or if the teams aren't found
+	 */
 	public void AddOpponents(String matchInfo, ArrayList<Team>teams) throws Exception {
 		Scanner s = new Scanner(matchInfo);
 		TeamID homeTeam = TeamID.getIDFromString(s.next());
@@ -54,6 +59,10 @@ public class Team {
 				}
 			}
 			
+		}
+		if (!(homeAdded && awayAdded)) {
+			s.close();
+			throw new Exception("One of more of the teams to be added was not included in the team list.");
 		}
 		s.close();
 	}
