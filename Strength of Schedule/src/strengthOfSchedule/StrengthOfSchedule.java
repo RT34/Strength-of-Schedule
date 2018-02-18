@@ -1,20 +1,19 @@
 package strengthOfSchedule;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
-
-import strengthOfSchedule.Team;
 
 public class StrengthOfSchedule {
 
+	/**Gets the full list of teams from ranking file
+	 * 
+	 * @param url: location of file
+	 * @return: the teams found
+	 * @throws Exception: various file IO exceptions or errors in the Team constructor
+	 */
 	public static ArrayList<Team> teamsFromFile (String url) throws Exception { 
 		FileReader fr = new FileReader(url);
 		BufferedReader br = new BufferedReader(fr);
@@ -23,9 +22,16 @@ public class StrengthOfSchedule {
 		while(((line = br.readLine()) != null)) {
 			teams.add(new Team(line));
 		}
+		br.close();
 		return teams;
 	}
 	
+	/**Gets all matches from the games file for SoS comparison
+	 * 
+	 * @param url: file location
+	 * @param teams: list of teams to update with their opponents
+	 * @throws Exception: various IO Exceptions and errors within addOpponents
+	 */
 	public static void getMatches (String url, ArrayList<Team>teams) throws Exception {
 		FileReader fr = new FileReader(url);
 		BufferedReader br = new BufferedReader(fr);
@@ -33,16 +39,35 @@ public class StrengthOfSchedule {
 		while (((line = br.readLine()) != null)) {
 			Team.addOpponents(line, teams);
 		}
+		br.close();
+	}
+	
+	/**Calculates Strength of Schedule for all teams
+	 * 
+	 * @param teams: teams to calculate SoS for
+	 * @return: the updated teams
+	 * @throws Exception: errors within update SoS
+	 */
+	public static ArrayList<Team> getSoS(ArrayList<Team> teams) throws Exception {
+		ArrayList<Team> baseSoSTeams = new ArrayList<Team>();
+		for (Team team : teams) { //Necessary so the strengths of schedules prior to this pass are used.
+			baseSoSTeams.add(team.clone());
+		}
+		for (Team team : teams) {
+			team.updateSOS(baseSoSTeams);
+		}
+		return teams;
 	}
 	
 	public static void main(String[] args) {
 		try {
 			ArrayList<Team> teams = teamsFromFile("./rankings.txt");
-			System.out.println(teams);
 			getMatches("./games.txt", teams);
-			ArrayList<Team> baseSoSTeams = (ArrayList<Team>)teams.clone();
-			for (Team team : teams) {
-				team.updateSOS(baseSoSTeams);
+			int order = 2; //If for some reason you want to do a different order SoS calculation, change this
+			for (int iii = 0; iii < order; iii++)
+				getSoS(teams);
+			Collections.sort(teams, Collections.reverseOrder()); //Sorts descending
+			for (Team team:teams) { //Prints array line by line
 				System.out.println(team);
 			}
 		}

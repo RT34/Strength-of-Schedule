@@ -9,10 +9,18 @@ import java.util.Scanner;
  * @author rbroo
  * @version 1.0
  */
-public class Team {
+public class Team implements Comparable<Team> {
 	int strengthOfSchedule;
 	TeamID ID;
 	ArrayList<TeamID> opponents = new ArrayList<TeamID>();
+	
+	/**Default blank constructor
+	 * 
+	 */
+	public Team() {
+		
+	}
+	
 	
 	/**Constructor, creates Team info from a line of a text file in format TeamID SoS
 	 * 
@@ -40,9 +48,11 @@ public class Team {
 			return;
 		}
 		Scanner s = new Scanner(matchInfo);
-		TeamID homeTeam = TeamID.getIDFromString(s.next());
+		
+		//Teams sorted into home and away for convenience
+		TeamID homeTeam = TeamID.getIDFromString(s.next()); 
 		TeamID awayTeam = TeamID.getIDFromString(s.next());
-		if (s.hasNext()) {
+		if (s.hasNext()) { //Throws exception if more tokens found than expected
 			s.close();
 			throw new InputMismatchException ("Input file formatted incorrectly");
 		}
@@ -52,25 +62,25 @@ public class Team {
 				team.opponents.add(awayTeam);
 				homeAdded = true;
 				if (awayAdded) {
-					break;
+					break; //Exits loop if both match participants have been found
 				}
 			}
 			else if (team.ID.equals(awayTeam)) {
 				team.opponents.add(homeTeam);
 				awayAdded = true;
 				if(homeAdded) {
-					break;
+					break; //Exits loop if both match participants have been found
 				}
 			}
 			
 		}
-		if (!(homeAdded && awayAdded)) {
+		if (!(homeAdded && awayAdded)) { //Throws exception if both opponents weren't found for whatever reason
 			s.close();
 			throw new Exception("One of more of the teams to be added was not included in the team list.");
 		}
 		s.close();
 	}
-	/**Goes through the list of teams provided and sums the strength of schedule of teams specified as an opponent, thus calculating the appropriate strength of schedule
+	/**Goes through the list of teams provided and sums the strength of schedule of teams specified as an opponent, thus calculating the appropriate strength of schedule for this team
 	 * 
 	 * @param Teams: list of teams from which strength of schedule values can be found
 	 */
@@ -87,7 +97,35 @@ public class Team {
 			throw new Exception("Not all opponents could be found for " + this.ID.toString());
 		}
 	}
+	
+	/**Converts to a string in the format [team name} has a strength of schedule of [SOS]
+	 * 
+	 */
 	public String toString() {
-		return this.ID + " had a strength of schedule of " + strengthOfSchedule;
+		return this.ID + " has a strength of schedule of " + strengthOfSchedule;
+	}
+	
+	/** Creates a new, independent copy of the Team
+	 * 
+	 */
+	public Team clone() {
+		Team copy = new Team();
+		copy.ID = this.ID;
+		copy.strengthOfSchedule = this.strengthOfSchedule;
+		copy.opponents = this.opponents;
+		return copy;
+	}
+	
+	/** Comparator requried by comparable interface. Compares teams by Strength of Schedule
+	 * @param o: the other team this is being compared to
+	 */
+	@Override
+	public int compareTo(Team o) {
+		if (this.strengthOfSchedule > o.strengthOfSchedule)
+			return 1;
+		else if (this.strengthOfSchedule < o.strengthOfSchedule)
+			return -1;
+		else
+			return 0;
 	}
 }

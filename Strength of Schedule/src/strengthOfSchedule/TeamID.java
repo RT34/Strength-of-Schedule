@@ -62,6 +62,10 @@ public enum TeamID {
 			throw new Exception("Invalid ID submitted for conversion: " + teamID);
 		}
 	}
+	
+	/**converts enum to it's full team name in plaintext
+	 * 
+	 */
 	public String toString() {
 		switch (this) {
 		case NEW_RADICAL_SYNDICALISTS:
