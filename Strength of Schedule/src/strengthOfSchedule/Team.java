@@ -13,6 +13,11 @@ public class Team {
 	TeamID ID;
 	ArrayList<TeamID> opponents = new ArrayList<TeamID>();
 	
+	/**Constructor, creates Team info from a line of a text file in format TeamID SoS
+	 * 
+	 * @param dataLine: Line from file with Team info
+	 * @throws Exception: in case of incorrect formatting, an exception will be thrown.
+	 */
 	public Team(String dataLine) throws Exception {
 		Scanner s = new Scanner(dataLine);
 		ID = TeamID.getIDFromString(s.next());
