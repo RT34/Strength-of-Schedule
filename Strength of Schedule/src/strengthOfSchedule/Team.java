@@ -68,7 +68,7 @@ public class Team {
 	}
 	/**Goes through the list of teams provided and sums the strength of schedule of teams specified as an opponent, thus calculating the appropriate strength of schedule
 	 * 
-	 * @param Teams: list of teams 
+	 * @param Teams: list of teams from which strength of schedule values can be found
 	 */
 	public void updateSOS(ArrayList<Team>Teams) throws Exception {
 		this.strengthOfSchedule = 0;
