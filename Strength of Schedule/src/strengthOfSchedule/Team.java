@@ -3,6 +3,11 @@ package strengthOfSchedule;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**Class to store information about teams
+ * 
+ * @author rbroo
+ * @version 1.0
+ */
 public class Team {
 	int strengthOfSchedule;
 	TeamID ID;
