@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+
 import strengthOfSchedule.Team;
 
 public class StrengthOfSchedule {
@@ -43,8 +46,17 @@ public class StrengthOfSchedule {
 				System.out.println(team);
 			}
 		}
+		catch (MalformedURLException e) {
+			System.out.println("Something went wrong with the URL.");
+			System.out.println(e.getStackTrace());
+		}
+		catch (InputMismatchException e) {
+			System.out.println(e);
+			System.out.println(e.getStackTrace());
+		}
 		catch (Exception e) {
-			
+			System.out.println(e);
+			System.out.println(e.getStackTrace());
 		}
 
 	}
