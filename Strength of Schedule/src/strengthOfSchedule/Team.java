@@ -1,6 +1,7 @@
 package strengthOfSchedule;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**Class to store information about teams
@@ -24,7 +25,7 @@ public class Team {
 		strengthOfSchedule = s.nextInt();
 		if (s.hasNext()) {
 			s.close();
-			throw new Exception ("Input file formatted incorrectly");
+			throw new InputMismatchException ("Input file formatted incorrectly");
 		}
 		s.close();
 	}
@@ -34,13 +35,13 @@ public class Team {
 	 * @param teams: arrayList of all teams to be checked.
 	 * @throws Exception: throws exception if the text string is formatted incorrectly, or if the teams aren't found
 	 */
-	public void AddOpponents(String matchInfo, ArrayList<Team>teams) throws Exception {
+	public static void addOpponents(String matchInfo, ArrayList<Team>teams) throws Exception {
 		Scanner s = new Scanner(matchInfo);
 		TeamID homeTeam = TeamID.getIDFromString(s.next());
 		TeamID awayTeam = TeamID.getIDFromString(s.next());
 		if (s.hasNext()) {
 			s.close();
-			throw new Exception ("Input file formatted incorrectly");
+			throw new InputMismatchException ("Input file formatted incorrectly");
 		}
 		boolean homeAdded = false, awayAdded = false;
 		for (Team team: teams) {
@@ -82,5 +83,8 @@ public class Team {
 		if (opponentsFound != opponents.size()) {
 			throw new Exception("Not all opponents could be found for " + this.ID.toString());
 		}
+	}
+	public String toString() {
+		return this.ID + " had a strength of schedule of " + strengthOfSchedule;
 	}
 }
