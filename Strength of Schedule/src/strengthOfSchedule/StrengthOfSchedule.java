@@ -1,6 +1,8 @@
 package strengthOfSchedule;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,10 +16,8 @@ import strengthOfSchedule.Team;
 public class StrengthOfSchedule {
 
 	public static ArrayList<Team> teamsFromFile (String url) throws Exception { 
-		URL u = new URL(url);
-		InputStream is = u.openStream();
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
+		FileReader fr = new FileReader(url);
+		BufferedReader br = new BufferedReader(fr);
 		String line;
 		ArrayList<Team> teams = new ArrayList<Team>();
 		while(((line = br.readLine()) != null)) {
@@ -27,10 +27,8 @@ public class StrengthOfSchedule {
 	}
 	
 	public static void getMatches (String url, ArrayList<Team>teams) throws Exception {
-		URL u = new URL(url);
-		InputStream is = u.openStream();
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
+		FileReader fr = new FileReader(url);
+		BufferedReader br = new BufferedReader(fr);
 		String line;
 		while (((line = br.readLine()) != null)) {
 			Team.addOpponents(line, teams);
@@ -40,18 +38,16 @@ public class StrengthOfSchedule {
 	public static void main(String[] args) {
 		try {
 			ArrayList<Team> teams = teamsFromFile("./rankings.txt");
+			System.out.println(teams);
 			getMatches("./games.txt", teams);
+			ArrayList<Team> baseSoSTeams = (ArrayList<Team>)teams.clone();
 			for (Team team : teams) {
-				team.updateSOS(teams);
+				team.updateSOS(baseSoSTeams);
 				System.out.println(team);
 			}
 		}
-		catch (MalformedURLException e) {
-			System.out.println("Something went wrong with the URL.");
-			System.out.println(e.getStackTrace());
-		}
 		catch (InputMismatchException e) {
-			System.out.println(e);
+			System.out.println("The file was formatted incorrectly:" + e);
 			System.out.println(e.getStackTrace());
 		}
 		catch (Exception e) {

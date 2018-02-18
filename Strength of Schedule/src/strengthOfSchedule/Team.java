@@ -36,6 +36,9 @@ public class Team {
 	 * @throws Exception: throws exception if the text string is formatted incorrectly, or if the teams aren't found
 	 */
 	public static void addOpponents(String matchInfo, ArrayList<Team>teams) throws Exception {
+		if (matchInfo.equals("")) {
+			return;
+		}
 		Scanner s = new Scanner(matchInfo);
 		TeamID homeTeam = TeamID.getIDFromString(s.next());
 		TeamID awayTeam = TeamID.getIDFromString(s.next());

@@ -9,8 +9,7 @@ public enum TeamID {
 	NEW_RADICAL_SYNDICALISTS, LIZPING_LIZARDS, MAGICAL_MINCING_MUMMIES, CHAOSIUM_OLD_GODS,
 	LUNCH_LIZARDS, ONE_PERCENT, THE_ARISTORATS, BLOODCHAMBER_ORCESTRA, DYING_DAISIES,
 	HONEST_FOLK, BEST_TEAM, REDDER_BARONS, AGGRUTS_ALL_STARS, UNDEAD_TEAM, NOT_SLANN,
-	BOYZ_II_HUMAN, HUUBS_HUMBLERS;
-	TeamID value;
+	BOYZ_II_HUMAN, HUUBS_HUMBLERS, SHADES_OF_BRUISES, DELICIOUS_KETTLES, COLD_ONES;
 
 	/**Converts from three letter identifier to enum
 	 * 
@@ -21,7 +20,7 @@ public enum TeamID {
 		switch (teamID) {
 		case "NRS":
 			return TeamID.NEW_RADICAL_SYNDICALISTS;
-		case "LZL":
+		case "LIZ":
 			return TeamID.LIZPING_LIZARDS;
 		case "MMM":
 			return TeamID.MAGICAL_MINCING_MUMMIES;
@@ -47,16 +46,24 @@ public enum TeamID {
 			return TeamID.UNDEAD_TEAM;
 		case "NSS":
 			return TeamID.NOT_SLANN;
-		case "BIH":
+		case "BOY":
 			return TeamID.BOYZ_II_HUMAN;
 		case "HUB":
 			return TeamID.HUUBS_HUMBLERS;
+		case "SOB":
+			return TeamID.SHADES_OF_BRUISES;
+		case "DEL":
+			return TeamID.DELICIOUS_KETTLES;
+		case "COL":
+			return TeamID.COLD_ONES;
+		case "TAR":
+			return TeamID.THE_ARISTORATS;
 		default:
-			throw new Exception("Invalid ID submitted for conversion");
+			throw new Exception("Invalid ID submitted for conversion: " + teamID);
 		}
 	}
 	public String toString() {
-		switch (this.value) {
+		switch (this) {
 		case NEW_RADICAL_SYNDICALISTS:
 			return "The New Radical Syndicalists";
 		case LIZPING_LIZARDS:
@@ -91,6 +98,12 @@ public enum TeamID {
 			return "Boyz II Humanz";
 		case HUUBS_HUMBLERS:
 			return "Huub's Humblers";
+		case SHADES_OF_BRUISES:
+			return "50 Shades of Bruises";
+		case DELICIOUS_KETTLES:
+			return "Delicious Kettles";
+		case COLD_ONES:
+			return "The (Very) Cold Ones";
 		default:
 			return null;
 		}
