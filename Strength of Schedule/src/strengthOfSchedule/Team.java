@@ -76,7 +76,7 @@ public class Team implements Comparable<Team> {
 		}
 		if (!(homeAdded && awayAdded)) { //Throws exception if both opponents weren't found for whatever reason
 			s.close();
-			throw new Exception("One of more of the teams to be added was not included in the team list.");
+			throw new Exception("One or more of the teams to be added was not included in the team list.");
 		}
 		s.close();
 	}
@@ -98,7 +98,7 @@ public class Team implements Comparable<Team> {
 		}
 	}
 	
-	/**Converts to a string in the format [team name} has a strength of schedule of [SOS]
+	/**Converts to a string in the format [team name] has a strength of schedule of [SOS]
 	 * 
 	 */
 	public String toString() {
