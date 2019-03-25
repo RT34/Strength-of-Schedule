@@ -116,7 +116,7 @@ public class Team implements Comparable<Team> {
 		return copy;
 	}
 	
-	/** Comparator requried by comparable interface. Compares teams by Strength of Schedule
+	/** Comparator required by comparable interface. Compares teams by Strength of Schedule
 	 * @param o: the other team this is being compared to
 	 */
 	@Override
