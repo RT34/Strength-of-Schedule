@@ -24,7 +24,7 @@ public class Team implements Comparable<Team> {
 	
 	/**Constructor, creates Team info from a line of a text file in format TeamID SoS
 	 * 
-	 * @param dataLine: Line from file with Team info
+	 * @param dataLine Line from file with Team info
 	 * @throws Exception: in case of incorrect formatting, an exception will be thrown.
 	 */
 	public Team(String dataLine) throws Exception {
@@ -39,8 +39,8 @@ public class Team implements Comparable<Team> {
 	}
 	/**Takes a string containing the details of one match and adds it to the opponents list of the appropriate teams
 	 * 
-	 * @param matchInfo: string containing match details
-	 * @param teams: arrayList of all teams to be checked.
+	 * @param matchInfo string containing match details
+	 * @param teams arrayList of all teams to be checked.
 	 * @throws Exception: throws exception if the text string is formatted incorrectly, or if the teams aren't found
 	 */
 	public static void addOpponents(String matchInfo, ArrayList<Team>teams) throws Exception {
@@ -82,19 +82,14 @@ public class Team implements Comparable<Team> {
 	}
 	/**Goes through the list of teams provided and sums the strength of schedule of teams specified as an opponent, thus calculating the appropriate strength of schedule for this team
 	 * 
-	 * @param Teams: list of teams from which strength of schedule values can be found
+	 * @param Teams list of teams from which strength of schedule values can be found
 	 */
 	public void updateSOS(ArrayList<Team>Teams) throws Exception {
 		this.strengthOfSchedule = 0;
-		int opponentsFound = 0;
 		for (Team team : Teams) {
 			if (this.opponents.contains(team.ID)) {
-				opponentsFound++;
 				this.strengthOfSchedule += team.strengthOfSchedule;
 			}
-		}
-		if (opponentsFound != opponents.size()) {
-			throw new Exception("Not all opponents could be found for " + this.ID.toString());
 		}
 	}
 	
@@ -117,7 +112,7 @@ public class Team implements Comparable<Team> {
 	}
 	
 	/** Comparator required by comparable interface. Compares teams by Strength of Schedule
-	 * @param o: the other team this is being compared to
+	 * @param o the other team this is being compared to
 	 */
 	@Override
 	public int compareTo(Team o) {
@@ -127,5 +122,12 @@ public class Team implements Comparable<Team> {
 			return -1;
 		else
 			return 0;
+	}
+	/**Returns number of opponents registered to the team
+	 * 
+	 * @return Number of opponents that the team has faced
+	 */
+	public int numOpponents() {
+		return this.opponents.size();
 	}
 }

@@ -46,15 +46,22 @@ public class StrengthOfSchedule {
 	 * 
 	 * @param teams: teams to calculate SoS for
 	 * @return: the updated teams
-	 * @throws Exception: errors within update SoS
+	 * @throws Exception: errors within update SoS, if errors were made while inputting match history
 	 */
 	public static ArrayList<Team> getSoS(ArrayList<Team> teams) throws Exception {
 		ArrayList<Team> baseSoSTeams = new ArrayList<Team>();
 		for (Team team : teams) { //Necessary so the strengths of schedules prior to this pass are used.
 			baseSoSTeams.add(team.clone());
 		}
+		int numOpponents = 0;
 		for (Team team : teams) {
 			team.updateSOS(baseSoSTeams);
+			if (numOpponents == 0) { //On the first pass only, sets a value. Can't find a cleaner way to do this unfortunately.
+				numOpponents = team.numOpponents();
+			}
+			else if (numOpponents != team.numOpponents()) { //Ensures that all teams have the same number of opponents registered as the first
+				throw new Exception (team.toString() + " does not have the correct number of opponents registered");
+			}
 		}
 		return teams;
 	}
