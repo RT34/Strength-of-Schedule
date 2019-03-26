@@ -131,8 +131,7 @@ public class Team implements Comparable<Team> {
 			return -1;
 		else
 			if (finalRanking) { //Ensure this is only done when resolving ties after the scenario is fully resolved
-				System.out.println("Tie involving " + this.ID + " in scenario " + scenario); //In the event of a tie not resolved by SoS allows head to head ties to be identified
-				//However, these will not be resolved as that's far too much fucking effort :P
+				System.out.println("Tie involving " + this.ID + " and " + o.getID()  + " in scenario " + scenario); //In the event of a tie not resolved by SoS allows head to head ties to be identified
 			}
 			return 0;
 	}
@@ -187,5 +186,8 @@ public class Team implements Comparable<Team> {
 	 */
 	public void isFinal(boolean isFinal) {
 		this.finalRanking = isFinal;
+	}
+	public int getSoS() {
+		return this.strengthOfSchedule;
 	}
 }

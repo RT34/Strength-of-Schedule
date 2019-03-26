@@ -65,7 +65,7 @@ public enum TeamID {
 		case PHEEENIX_KING_AMBASSADORS:
 			return "FKA";
 		case PONCY_ELVES:
-			return "PPP";
+			return "PON";
 		case BREAKDOWNERS:
 			return "BRK";
 		case BYE_TEAM:

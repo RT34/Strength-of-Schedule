@@ -8,5 +8,5 @@ GRS 6
 PPP 6
 VVV 4
 FKA 4
-DFG 4
+DGR 4
 BYE 0

@@ -2,6 +2,7 @@ package foldySheetData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class FoldySheetCalculator {
 		String line;
 		while (((line = br.readLine()) != null)) {
 			Team.addOpponents(line, teams);
+
 		}
 		br.close();
 	}
@@ -74,13 +76,13 @@ public class FoldySheetCalculator {
 				prevScore = team.getScore();
 			}
 		}
-		numUniqueScores++; //We want the SoS of the last place team to be 1 because I have arbitrarily decided this
 		prevScore = teams.get(0).getScore();
 		for (Team team:teams) {
 			if (prevScore != team.getScore()) {
-				prevScore--;
+				numUniqueScores--;
+				prevScore = team.getScore();
 			}
-			team.setSoS(prevScore);
+			team.setSoS(numUniqueScores);
 			team.isFinal(true);
 		}
 	}
@@ -98,10 +100,11 @@ public class FoldySheetCalculator {
 		}
 		Scanner s = new Scanner (scenario);
 		s.useDelimiter(",");
-		String result = s.next();
+		String result = new String();
 		ArrayList <TeamID> winners = new ArrayList<TeamID>();
 		ArrayList <Boolean> draws = new ArrayList<Boolean>();
 		for (int iii = 0; iii < 4; iii++) { //We know there are four matches to calculate so used this way
+			result = s.next();
 			if (result.equals("DRAW")) {
 				winners.add(null);
 				draws.add(true);
@@ -187,27 +190,27 @@ public class FoldySheetCalculator {
 			s.close();
 			throw new Exception("Scenario information formatted incorrectly");
 		}
-		Collections.sort(teams); //Places in order prior to tiebreaks
+		Collections.sort(teams, Collections.reverseOrder()); //Places in order prior to tiebreaks
 		setInitSoS(teams);
 		for (int iii = 0; iii < 2; iii++) //Change final value ifyou want a different order of SoS
 			getSoS(teams, scenarioNumber);
-		Collections.sort(teams);
+		Collections.sort(teams, Collections.reverseOrder());
 		for (int iii = 0; iii < teams.size()-1; iii++) { //SHould not be a comma at the end so must be done like this
 			writer.write(TeamID.abbrFromID(teams.get(iii).getID()));
 			writer.write(",");
 		}
-		writer.write(TeamID.abbrFromID(teams.get(teams.size()).getID()));
+		writer.write(TeamID.abbrFromID(teams.get(teams.size()-1).getID()));
 		writer.newLine();
 		s.close();
 	}
 	
 	public static void main(String args[]) {
 		try {
-			ArrayList<Team> teams = teamsFromFile("./Ranking.txt");
-			getMatches("./Games.txt", teams);
-			FileReader fr = new FileReader("./Scenarios.csv");
+			ArrayList<Team> teams = teamsFromFile("src/ranking.txt");
+			getMatches("src/Games.txt", teams);
+			FileReader fr = new FileReader("src/Scenarios.csv");
 			BufferedReader br = new BufferedReader(fr);
-			FileWriter fw = new FileWriter("./Outcomes.csv");
+			FileWriter fw = new FileWriter("src/Outcomes.csv");
 			BufferedWriter bw = new BufferedWriter(fw);
 			String line;
 			int numScenarios = 0;
